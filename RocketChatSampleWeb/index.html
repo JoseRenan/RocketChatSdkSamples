@@ -1,0 +1,40 @@
+<script src="./node_modules/@rocket.chat/sdk/dist/bundle.js"></script>
+<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+
+<input type="text" id="message" />
+<button id="submit">Send</button><br />
+<h2>Listening to messages on general:</h2>
+<ul id="messages">
+</ul>
+
+<script>
+    const demo = message => {
+        $("#messages").append(`<li><h4>[${message.u.username}] ${message.msg}</h4></li>`);
+    }
+
+    $("#submit").click(() => {
+        const message = $("#message").val();
+        RocketChat.driver.sendToRoom(message, "general").then(message => demo(message));
+    });
+
+    const subscribeToMessages = () => {
+        RocketChat.driver.respondToMessages((err, msg, msgOpts) => {
+            if (err) throw err
+            demo(msg)
+        }, {
+            rooms: ['general'],
+            allPublic: false,
+            dm: true,
+            edited: true,
+            livechat: false
+        })
+    };
+
+    RocketChat.driver.connect()
+        .then(() => {
+            RocketChat.driver.login({ username: "bot", password: "pass" })
+                .then(() => RocketChat.driver.subscribeToMessages().then(() => subscribeToMessages()));
+        })
+</script>
+
+

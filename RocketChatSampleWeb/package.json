@@ -1,0 +1,15 @@
+{
+  "name": "rocketchatsampleweb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@rocket.chat/sdk": "git+https://git@github.com/joserenan/Rocket.Chat.js.SDK.git#remove-asteroid-usage-to-another-ddp",
+    "jquery": "^3.3.1"
+  }
+}
